@@ -1,41 +1,29 @@
-# Điều khiển LED bằng thư viện OneButton
+# Bài 4: Điều khiển 1 LED bằng OneButton
 
-Dự án này sử dụng thư viện `OneButton` trên nền tảng PlatformIO để điều khiển một đèn LED thông qua nút nhấn với các thao tác khác nhau, thay thế cho hàm `delay()` truyền thống.
+## Linh kiện & Nối dây
+- **Board:** ESP32 Devkit V1
+- **LED ngoài:** Cực dương cắm vào chân D4, cực âm nối qua trở 1k xuống GND.
+- **Nút nhấn:** 1 chân cắm vào D23, chân còn lại nối GND (trong code đã dùng `INPUT_PULLUP`).
 
-## Tính năng
-- **Single Click (Nhấn 1 lần):** Bật hoặc tắt đèn LED (Toggle ON/OFF).
-- **Double Click (Nhấn đúp):** Chuyển đổi giữa chế độ sáng tĩnh và chế độ nhấp nháy liên tục (Blink).
+## Chức năng
+- **Nhấn 1 lần (Single Click):** Bật hoặc tắt LED.
+- **Nhấn đúp (Double Click):** Chuyển sang chế độ nháy LED liên tục.
 
-## Yêu cầu phần cứng
-- 1 x ESP32 Devkit V1 (30 chân)
-- 1 x Đèn LED
-- 1 x Điện trở 1kΩ
-- 1 x Nút nhấn (Push button)
+## Linh kiện & Nối dây
+- **Board:** ESP32 Devkit V1
+- **LED ngoài:** Cực dương cắm vào chân D4, cực âm nối qua trở 1k xuống GND.
+- **Nút nhấn:** 1 chân cắm vào D23, chân còn lại nối GND (trong code đã dùng `INPUT_PULLUP`).
 
-## Sơ đồ đấu nối
-- **LED:** Cực dương nối với chân GPIO 4 (D4) của ESP32, cực âm nối qua điện trở 1kΩ xuống chân GND.
-- **Nút nhấn:** Một chân nối với GPIO 23 (D23), chân cùng phía còn lại nối xuống GND (Mạch sử dụng điện trở kéo lên nội bộ `INPUT_PULLUP`).
+# Bài 5: Mở rộng 1 nút nhấn điều khiển 2 LED
 
-## Cấu hình phần mềm
-- Môi trường: PlatformIO IDE (VS Code).
-- Framework: Arduino.
-- Thư viện phụ thuộc: `mathertel/OneButton` (được tự động quản lý qua `platformio.ini`).
+Chỉ với 1 nút nhấn, ta có thể điều khiển độc lập được 2 đèn LED (1 cái có sẵn trên board, 1 cái cắm ngoài).
 
-# Hệ thống điều khiển 2 LED độc lập bằng 1 Nút nhấn
+## Cách hoạt động
+- **Nhấn đúp (Double Click):** Đổi qua đổi lại quyền điều khiển giữa LED 1 và LED 2.
+- **Nhấn 1 lần (Single Click):** Bật/tắt cái LED đang được chọn.
+- **Nhấn giữ (Long Press):** Cái LED đang được chọn sẽ nháy liên tục (200ms/lần). Khi nhả tay ra, LED tự quay về trạng thái lúc trước khi bấm giữ.
 
-Dự án mở rộng khả năng điều khiển đa nhiệm, cho phép quản lý trạng thái của 2 đèn LED độc lập chỉ bằng một nút nhấn duy nhất trên bo mạch ESP32 thông qua thư viện OneButton.
-
-## Tính năng cốt lõi
-- **Double Click (Nhấn đúp):** Chuyển đổi quyền điều khiển qua lại giữa LED 1 (Built-in) và LED 2 (Gắn ngoài).
-- **Single Click (Nhấn 1 lần):** Bật hoặc tắt (Toggle ON/OFF) trạng thái của đèn LED đang được chọn.
-- **Long Press (Nhấn giữ):** Đèn LED đang được chọn sẽ nhấp nháy liên tục với chu kỳ 200ms bằng thuật toán non-blocking. Khi nhả nút, LED tự động trở về trạng thái sáng/tắt tĩnh ban đầu.
-
-## Sơ đồ phần cứng
-- **LED 1 (Built-in LED):** Tích hợp sẵn trên bo mạch ESP32 (Chân GPIO 2).
-- **LED 2 (External LED):** Cực dương cắm vào chân GPIO 4 (D4), cực âm nối tiếp qua điện trở 1kΩ rồi đi xuống đường GND chung.
-- **Nút nhấn:** Một chân kết nối vào chân GPIO 23 (D23), chân cùng phía còn lại nối xuống đường GND chung.
-
-## Cài đặt và Sử dụng
-1. Nhân bản (Clone) kho mã nguồn này về máy:
-   ```bash
-   git clone [https://github.com/ThanhDoan2k5/ESP32-DUALLED.git](https://github.com/ThanhDoan2k5/ESP32-DUALLED.git)
+## Sơ đồ đấu nối phần cứng
+- **LED 1 (Built-in):** Dùng luôn LED tích hợp trên board ESP32 (chân D2).
+- **LED 2 (Gắn ngoài):** Chân dương nối vào D4, chân âm nối qua điện trở 1k xuống GND.
+- **Nút nhấn:** 1 chân nối vào D23, chân kia nối GND.
